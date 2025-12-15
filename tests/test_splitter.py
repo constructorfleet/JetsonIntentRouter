@@ -1,4 +1,4 @@
-from router.splitter import split_clauses
+from intent_router.router.splitter import split_clauses
 
 
 def test_single_clause():

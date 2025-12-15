@@ -1,4 +1,4 @@
-from service.app import create_app
+from intent_router.service.app import create_app
 
 
 def test_chat_endpoint_non_stream():

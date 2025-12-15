@@ -1,4 +1,4 @@
-from router.router import Router
+from intent_router.router.router import Router
 
 
 class DummyClassifier:
