@@ -20,7 +20,7 @@ dependencies = [
   "python-dotenv>=1.0.1",
 ]
 
-[too.setuptools]
+[tool.setuptools]
 packages = ["intent_router"]
 
 [dependency-groups]
