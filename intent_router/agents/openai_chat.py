@@ -5,7 +5,7 @@ import os
 
 import requests
 
-from agents.base import Agent, AgentResponse
+from intent_router.agents.base import Agent, AgentResponse
 
 
 class OpenAIChatAgent(Agent):

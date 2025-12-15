@@ -5,20 +5,20 @@ import json
 from dotenv import load_dotenv
 from flask import Flask, Response, jsonify, request, stream_with_context
 
-from agents.local_command import LocalCommandAgent
-from agents.openai_chat import OpenAIChatAgent
-from router.logging import (
+from intent_router.agents.local_command import LocalCommandAgent
+from intent_router.agents.openai_chat import OpenAIChatAgent
+from intent_router.router.logging import (
     log_execution_result,
     log_raw_request,
     log_routed_clauses,
 )
-from router.router import IntentRouter
-from router.splitter import ClauseSplitter
-from router.streaming import stream_agent
-from runtime.ort_classifier import OrtIntentClassifier
-from service.config import load_router_bits, load_service_config
-from service.labeling import LABEL_UI
-from service.openai_compat import chat_completions_response, extract_last_user_content
+from intent_router.router.router import IntentRouter
+from intent_router.router.splitter import ClauseSplitter
+from intent_router.router.streaming import stream_agent
+from intent_router.runtime.ort_classifier import OrtIntentClassifier
+from intent_router.service.config import load_router_bits, load_service_config
+from intent_router.service.labeling import LABEL_UI
+from intent_router.service.openai_compat import chat_completions_response, extract_last_user_content
 
 
 def build_classifier(backend: str, model_path: str, intents, seq_len: int):

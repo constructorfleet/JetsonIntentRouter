@@ -1,5 +1,5 @@
 [project]
-name = "jetson-intent-router"
+name = "intent-router"
 version = "0.1.0"
 description = "Jetson-friendly intent router with ONNX/TensorRT and OpenAI-compatible API"
 readme = "README.md"

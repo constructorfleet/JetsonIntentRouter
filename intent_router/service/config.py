@@ -5,8 +5,8 @@ from dataclasses import dataclass
 
 import yaml
 
-from router.router import RouterConfig
-from router.splitter import SplitterConfig
+from intent_router.router.router import RouterConfig
+from intent_router.router.splitter import SplitterConfig
 
 
 @dataclass

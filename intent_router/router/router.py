@@ -3,8 +3,8 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Dict, List
 
-from router.splitter import ClauseSplitter
-from router.types import RoutedClause, RouteResult
+from intent_router.router.splitter import ClauseSplitter
+from intent_router.router.types import RoutedClause, RouteResult
 
 
 @dataclass

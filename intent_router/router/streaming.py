@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from ..agents.base import Agent
+from intent_router.agents.base import Agent
 
 
 def agent_can_stream(agent: Agent) -> bool:
