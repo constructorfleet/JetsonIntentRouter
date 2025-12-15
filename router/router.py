@@ -1,9 +1,11 @@
 from __future__ import annotations
+
 from dataclasses import dataclass
-from typing import Dict, Any, List, Optional
+from typing import Dict, List
 
 from router.splitter import ClauseSplitter
 from router.types import RoutedClause, RouteResult
+
 
 @dataclass
 class RouterConfig:
@@ -26,7 +28,15 @@ class IntentRouter:
             intent, conf = self.classifier.predict(clause)
             if conf < self.cfg.confidence_threshold or intent not in self.cfg.intent_to_agent:
                 intent = "Unknown"
-            agent = self.cfg.intent_to_agent.get(intent, self.cfg.intent_to_agent.get("Unknown", "search"))
-            routed.append(RoutedClause(clause=clause, intent=intent, confidence=float(conf), agent=agent))
+            agent = self.cfg.intent_to_agent.get(
+                    intent,
+                    self.cfg.intent_to_agent.get("Unknown", "search")
+            )
+            routed.append(RoutedClause(
+                    clause=clause,
+                    intent=intent,
+                    confidence=float(conf),
+                    agent=agent)
+            )
 
         return RouteResult(original_text=text, clauses=routed, meta={"num_clauses": len(routed)})

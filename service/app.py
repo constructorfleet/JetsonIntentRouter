@@ -1,24 +1,25 @@
 from __future__ import annotations
-import os
-from flask import Flask, request, jsonify, stream_with_context
-import json
-from dotenv import load_dotenv
 
+import json
+
+from dotenv import load_dotenv
+from flask import Flask, Response, jsonify, request, stream_with_context
+
+from agents.local_command import LocalCommandAgent
+from agents.openai_chat import OpenAIChatAgent
 from router.logging import (
+    log_execution_result,
     log_raw_request,
     log_routed_clauses,
-    log_execution_result,
 )
-from router.splitter import ClauseSplitter
 from router.router import IntentRouter
+from router.splitter import ClauseSplitter
 from router.streaming import stream_agent
 from runtime.ort_classifier import OrtIntentClassifier
-from service.config import load_service_config, load_router_bits
+from service.config import load_router_bits, load_service_config
 from service.labeling import LABEL_UI
-from service.openai_compat import extract_last_user_content, chat_completions_response
+from service.openai_compat import chat_completions_response, extract_last_user_content
 
-from agents.openai_chat import OpenAIChatAgent
-from agents.local_command import LocalCommandAgent
 
 def build_classifier(backend: str, model_path: str, intents, seq_len: int):
     if backend == "trt":
@@ -90,7 +91,11 @@ def create_app():
     load_dotenv()
     cfg = load_service_config()
 
-    intents, split_cfg, agents_cfg, router_cfg = load_router_bits(cfg.intents_path, cfg.splitter_path, cfg.agents_path)
+    intents, split_cfg, agents_cfg, router_cfg = load_router_bits(
+            cfg.intents_path,
+            cfg.splitter_path,
+            cfg.agents_path
+    )
     splitter = ClauseSplitter(split_cfg)
     classifier = build_classifier(cfg.backend, cfg.model_path, intents, cfg.seq_len)
     router = IntentRouter(splitter=splitter, classifier=classifier, cfg=router_cfg)
@@ -102,7 +107,7 @@ def create_app():
     def healthz():
         return {"ok": True, "backend": cfg.backend}
 
-    app.register_blueprint(LABEL_UI
+    app.register_blueprint(LABEL_UI)
 
     # OpenAI-compatible endpoint (minimal): /v1/chat/completions
     @app.post("/v1/chat/completions")

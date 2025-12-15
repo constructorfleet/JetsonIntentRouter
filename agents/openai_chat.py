@@ -1,16 +1,34 @@
 from __future__ import annotations
-import os, requests
+
 import json
+import os
+
+import requests
+
 from agents.base import Agent, AgentResponse
 
+
 class OpenAIChatAgent(Agent):
-    def __init__(self, base_url: str | None = None, api_key: str | None = None, model: str | None = None, timeout_s: int = 60):
-        self.base_url = (base_url or os.getenv("OPENAI_BASE_URL", "https://api.openai.com/v1")).rstrip("/")
+    def __init__(
+            self,
+            base_url: str | None = None,
+            api_key: str | None = None,
+            model: str | None = None,
+            timeout_s: int = 60
+    ):
+        self.base_url = (base_url or os.getenv(
+            "OPENAI_BASE_URL",
+            "https://api.openai.com/v1")
+        ).rstrip("/")
         self.api_key = api_key or os.getenv("OPENAI_API_KEY", "")
         self.model = model or os.getenv("OPENAI_MODEL", "gpt-4.1-mini")
         self.timeout_s = timeout_s
 
-    def run(self, user_text: str, system_prompt: str | None = None, **kwargs) -> AgentResponse:
+    def run(
+            self,
+            user_text: str,
+            system_prompt: str | None = None, **kwargs
+    ) -> AgentResponse:
         # If no API key, return a safe stub (useful for offline/dev).
         if not self.api_key:
             return AgentResponse(
@@ -19,7 +37,10 @@ class OpenAIChatAgent(Agent):
             )
 
         url = f"{self.base_url}/chat/completions"
-        headers = {"Authorization": f"Bearer {self.api_key}", "Content-Type": "application/json"}
+        headers = {
+            "Authorization": f"Bearer {self.api_key}",
+            "Content-Type": "application/json"
+        }
         messages = []
         if system_prompt:
             messages.append({"role": "system", "content": system_prompt})
@@ -35,7 +56,10 @@ class OpenAIChatAgent(Agent):
         r.raise_for_status()
         data = r.json()
         content = data["choices"][0]["message"]["content"]
-        return AgentResponse(content=content, meta={"provider": "openai", "model": self.model})
+        return AgentResponse(
+                content=content,
+                meta={"provider": "openai", "model": self.model}
+        )
 
 
     def stream(self, user_text: str, system_prompt: str | None = None, **kwargs):

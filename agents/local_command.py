@@ -1,5 +1,7 @@
 from __future__ import annotations
+
 from agents.base import Agent, AgentResponse
+
 
 class LocalCommandAgent(Agent):
     """Stub agent: translate to a pretend command payload."""

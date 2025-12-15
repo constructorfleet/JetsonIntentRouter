@@ -1,7 +1,10 @@
 from __future__ import annotations
+
 import argparse
-from onnxsim import simplify
+
 import onnx
+from onnxsim import simplify
+
 
 def main():
     ap = argparse.ArgumentParser()

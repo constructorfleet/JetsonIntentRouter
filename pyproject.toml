@@ -20,19 +20,12 @@ dependencies = [
   "python-dotenv>=1.0.1",
 ]
 
-[project.optional-dependencies]
+[dependency-groups]
 jetson = [
   "tensorrt",
   "pycuda",
 ]
 
-dev = [
-  "black",
-  "ruff",
-  "pytest",
-]
-
-[dependency-groups]
 dev = [
   "black",
   "ruff",

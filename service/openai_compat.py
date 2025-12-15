@@ -1,6 +1,9 @@
 from __future__ import annotations
-import time, uuid
+
+import time
+import uuid
 from typing import Any, Dict, List
+
 
 def extract_last_user_content(messages: List[Dict[str, Any]]) -> str:
     # OpenAI format: list of dicts {role, content}
@@ -18,7 +21,11 @@ def extract_last_user_content(messages: List[Dict[str, Any]]) -> str:
                 return "\n".join(out)
     return ""
 
-def chat_completions_response(content: str, model: str = "router", route_meta: Dict[str, Any] | None = None):
+def chat_completions_response(
+        content: str,
+        model: str = "router",
+        route_meta: Dict[str, Any] | None = None
+):
     now = int(time.time())
     rid = f"chatcmpl-{uuid.uuid4().hex[:24]}"
     return {

@@ -1,8 +1,13 @@
 from __future__ import annotations
-import os, yaml
+
+import os
 from dataclasses import dataclass
-from router.splitter import SplitterConfig
+
+import yaml
+
 from router.router import RouterConfig
+from router.splitter import SplitterConfig
+
 
 @dataclass
 class ServiceConfig:

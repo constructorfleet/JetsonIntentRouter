@@ -1,6 +1,7 @@
 import json
 from pathlib import Path
-from flask import Blueprint, render_template, request, redirect
+
+from flask import Blueprint, redirect, render_template, request
 
 LABEL_UI = Blueprint("label_ui", __name__)
 

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
-from typing import Iterator, Dict, Any
+from typing import Any, Dict, Iterator
+
 
 class Agent:
     def run(

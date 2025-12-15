@@ -1,6 +1,7 @@
-from __future__ implment annotations
+from __future__ import annotations
 
 from ..agents.base import Agent
+
 
 def agent_can_stream(agent: Agent) -> bool:
     return callable(getattr(agent, "stream", None))

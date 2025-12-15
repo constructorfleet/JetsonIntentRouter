@@ -1,7 +1,10 @@
 from __future__ import annotations
+
 import argparse
+
 import torch
 from transformers import DistilBertForSequenceClassification, DistilBertTokenizerFast
+
 
 def main():
     ap = argparse.ArgumentParser()

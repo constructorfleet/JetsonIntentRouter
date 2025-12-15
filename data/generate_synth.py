@@ -1,4 +1,6 @@
-import json, random, argparse
+import argparse
+import json
+import random
 
 TEMPLATES = {
   "MediaLibrary": [

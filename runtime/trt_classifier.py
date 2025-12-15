@@ -1,7 +1,10 @@
 from __future__ import annotations
-import numpy as np
+
 from typing import List, Tuple
-from transformers import DistilBertTokenizerFast
+
+import numpy as np
+import pycuda.autoinit  # noqa: F401
+import pycuda.driver as cuda
 
 # Optional deps on Jetson:
 #   import tensorrt as trt
@@ -9,10 +12,9 @@ from transformers import DistilBertTokenizerFast
 #   import pycuda.autoinit
 #
 # This module is imported only when ROUTER_BACKEND=trt.
-
 import tensorrt as trt
-import pycuda.driver as cuda
-import pycuda.autoinit  # noqa: F401
+from transformers import DistilBertTokenizerFast
+
 
 class TrtEngineRunner:
     def __init__(self, engine_path: str, logger_severity=trt.Logger.WARNING):
@@ -39,7 +41,10 @@ class TrtEngineRunner:
         self.bindings[idx] = int(dev)
 
     def ensure(self, name: str, shape: tuple, dtype: np.dtype):
-        if name not in self.host or self.host[name].size != int(np.prod(shape)) or self.host[name].dtype != dtype:
+        name_missing = name in self.host
+        if name_missing or \
+                self.host[name].size != int(np.prod(shape)) or \
+                self.host[name].dtype != dtype:
             self._alloc(name, shape, dtype)
 
     def infer(self, input_ids: np.ndarray, attention_mask: np.ndarray) -> np.ndarray:
@@ -75,7 +80,13 @@ class TrtEngineRunner:
         return self.host[out_name].reshape(out_shape).copy()
 
 class TrtIntentClassifier:
-    def __init__(self, engine_path: str, intents: List[str], seq_len: int = 32, model_name: str = "distilbert-base-uncased"):
+    def __init__(
+            self,
+            engine_path: str,
+            intents: List[str],
+            seq_len: int = 32,
+            model_name: str = "distilbert-base-uncased"
+    ):
         self.intents = intents
         self.seq_len = seq_len
         self.tokenizer = DistilBertTokenizerFast.from_pretrained(model_name)
