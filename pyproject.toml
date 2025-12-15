@@ -8,7 +8,7 @@ requires-python = ">=3.9"
 dependencies = [
   "flask>=3.0.0",
   "pyyaml>=6.0.1",
-  "numpy>=1.24",
+  "numpy>=1.24",:
   "transformers>=4.41.0",
   "datasets>=2.19.0",
   "torch>=2.1.0",
@@ -32,8 +32,8 @@ dev = [
   "pytest",
 ]
 
-[tool.uv]
-dev-dependencies = [
+[dependency-groups]
+dev = [
   "black",
   "ruff",
   "pytest",
