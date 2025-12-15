@@ -1,7 +1,7 @@
 from router.logging import (
+    log_execution_result,
     log_raw_request,
     log_routed_clauses,
-    log_execution_result,
 )
 
 
