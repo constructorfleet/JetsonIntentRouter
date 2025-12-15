@@ -1,10 +1,12 @@
 from __future__ import annotations
 import os
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, stream_with_context
+import json
 from dotenv import load_dotenv
 
 from router.splitter import ClauseSplitter
 from router.router import IntentRouter
+from router.streaming import stream_agent
 from runtime.ort_classifier import OrtIntentClassifier
 from service.config import load_service_config, load_router_bits
 from service.openai_compat import extract_last_user_content, chat_completions_response
@@ -61,29 +63,49 @@ def create_app():
     # OpenAI-compatible endpoint (minimal): /v1/chat/completions
     @app.post("/v1/chat/completions")
     def chat_completions():
-        body = request.get_json(force=True, silent=False)
+        body = request.get_json(force=True)
         messages = body.get("messages", [])
-        user_text = extract_last_user_content(messages)
+        stream = bool(body.get("stream", False))
 
+        user_text = extract_last_user_content(messages)
         route_result = router.route(user_text)
 
-        agent_outputs = []
-        for rc in route_result.clauses:
-            agent_name = rc.agent
-            agent = agents[agent_name]
-            sys_prompt = agents_cfg["agents"][agent_name].get("system_prompt")
-            tmpl = agents_cfg.get("prompt_templates", {}).get(rc.intent, "{clause}")
-            user_prompt = tmpl.format(clause=rc.clause)
+        if not stream:
+            # Optional: keep your existing non-streaming behavior
+            return jsonify(chat_completions_response(
+                content="Streaming disabled; enable stream=true",
+                model=body.get("model", "router"),
+            ))
 
-            resp = agent.run(user_prompt, system_prompt=sys_prompt)
-            agent_outputs.append(resp.content)
+        def event_stream():
+            for rc in route_result.clauses:
+                agent = agents[rc.agent]
+                agent_cfg = agents_cfg["agents"][rc.agent]
+                sys_prompt = agent_cfg.get("system_prompt")
 
-        content = format_routed_output(route_result, agent_outputs)
-        meta = {
-            "num_clauses": route_result.meta["num_clauses"],
-            "clauses": [rc.__dict__ for rc in route_result.clauses],
-        }
-        return jsonify(chat_completions_response(content=content, model=body.get("model","router"), route_meta=meta))
+                tmpl = agents_cfg.get("prompt_templates", {}).get(rc.intent, "{clause}")
+                user_prompt = tmpl.format(clause=rc.clause)
+
+                for chunk in stream_agent(
+                    agent,
+                    user_text=user_prompt,
+                    system_prompt=sys_prompt,
+                ):
+                    yield f"data: {json.dumps(chunk)}\n\n"
+
+            # ONE termination
+            yield f"data: {json.dumps({
+                'choices': [{
+                    'delta': {},
+                    'finish_reason': 'stop'
+                }]
+            })}\n\n"
+            yield "data: [DONE]\n\n"
+
+        return Response(
+            stream_with_context(event_stream()),
+            mimetype="text/event-stream",
+        )
 
     return app
 

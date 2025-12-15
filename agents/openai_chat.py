@@ -1,5 +1,6 @@
 from __future__ import annotations
 import os, requests
+import json
 from agents.base import Agent, AgentResponse
 
 class OpenAIChatAgent(Agent):
@@ -35,3 +36,52 @@ class OpenAIChatAgent(Agent):
         data = r.json()
         content = data["choices"][0]["message"]["content"]
         return AgentResponse(content=content, meta={"provider": "openai", "model": self.model})
+
+
+    def stream(self, user_text: str, system_prompt: str | None = None, **kwargs):
+        # Stub path for dev / no key
+        if not self.api_key:
+            yield {
+                "choices": [{
+                    "delta": {"content": f"[stubbed-openai] {user_text}"}
+                }]
+            }
+            return
+
+        url = f"{self.base_url}/chat/completions"
+        headers = {
+            "Authorization": f"Bearer {self.api_key}",
+            "Content-Type": "application/json",
+        }
+
+        messages = []
+        if system_prompt:
+            messages.append({"role": "system", "content": system_prompt})
+        messages.append({"role": "user", "content": user_text})
+
+        payload = {
+            "model": self.model,
+            "messages": messages,
+            "temperature": kwargs.get("temperature", 0.2),
+            "stream": True,
+        }
+
+        with requests.post(
+            url,
+            headers=headers,
+            json=payload,
+            stream=True,
+            timeout=self.timeout_s,
+        ) as r:
+            r.raise_for_status()
+            for line in r.iter_lines():
+                if not line:
+                    continue
+                if not line.startswith(b"data: "):
+                    continue
+
+                data = line[6:]
+                if data == b"[DONE]":
+                    return
+
+                yield json.loads(data)
