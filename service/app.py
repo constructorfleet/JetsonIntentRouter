@@ -4,6 +4,11 @@ from flask import Flask, request, jsonify, stream_with_context
 import json
 from dotenv import load_dotenv
 
+from router.logging import (
+    log_raw_request,
+    log_routed_clauses,
+    log_execution_result,
+)
 from router.splitter import ClauseSplitter
 from router.router import IntentRouter
 from router.streaming import stream_agent
@@ -32,6 +37,42 @@ def build_agents(agents_cfg):
         else:
             raise ValueError(f"Unknown agent type: {t} for agent {name}")
     return agents
+
+def execute_clauses(route_result, agents, agents_cfg):
+    exec_results = []
+
+    for rc in route_result.clauses:
+        agent = agents[rc.agent]
+        agent_cfg = agents_cfg["agents"][rc.agent]
+        sys_prompt = agent_cfg.get("system_prompt")
+
+        tmpl = agents_cfg.get("prompt_templates", {}).get(rc.intent, "{clause}")
+        user_prompt = tmpl.format(clause=rc.clause)
+
+        try:
+            for chunk in stream_agent(
+                agent,
+                user_text=user_prompt,
+                system_prompt=sys_prompt,
+            ):
+                yield chunk
+
+            exec_results.append({
+                "clause": rc.clause,
+                "agent": rc.agent,
+                "status": "success",
+            })
+
+        except Exception as e:
+            exec_results.append({
+                "clause": rc.clause,
+                "agent": rc.agent,
+                "status": "error",
+                "error": str(e),
+            })
+            raise
+
+    return exec_results
 
 def format_routed_output(route_result, agent_outputs):
     # Human-readable output returned as assistant content (OpenAI format).
@@ -68,46 +109,70 @@ def create_app():
         stream = bool(body.get("stream", False))
 
         user_text = extract_last_user_content(messages)
+
+        # ---- logging: raw input ----
+        request_id = log_raw_request(user_text)
+
+        # ---- routing ----
         route_result = router.route(user_text)
 
-        if not stream:
-            # Optional: keep your existing non-streaming behavior
-            return jsonify(chat_completions_response(
-                content="Streaming disabled; enable stream=true",
-                model=body.get("model", "router"),
-            ))
-
-        def event_stream():
-            for rc in route_result.clauses:
-                agent = agents[rc.agent]
-                agent_cfg = agents_cfg["agents"][rc.agent]
-                sys_prompt = agent_cfg.get("system_prompt")
-
-                tmpl = agents_cfg.get("prompt_templates", {}).get(rc.intent, "{clause}")
-                user_prompt = tmpl.format(clause=rc.clause)
-
-                for chunk in stream_agent(
-                    agent,
-                    user_text=user_prompt,
-                    system_prompt=sys_prompt,
-                ):
-                    yield f"data: {json.dumps(chunk)}\n\n"
-
-            # ONE termination
-            yield f"data: {json.dumps({
-                'choices': [{
-                    'delta': {},
-                    'finish_reason': 'stop'
-                }]
-            })}\n\n"
-            yield "data: [DONE]\n\n"
-
-        return Response(
-            stream_with_context(event_stream()),
-            mimetype="text/event-stream",
+        # ---- logging: routing ----
+        log_routed_clauses(
+            request_id,
+            [
+                {
+                    "clause": rc.clause,
+                    "intent": rc.intent,
+                    "confidence": rc.confidence,
+                    "agent": rc.agent,
+                }
+                for rc in route_result.clauses
+            ],
         )
 
-    return app
+        # ---- streaming path ----
+        if stream:
+
+            def event_stream():
+                exec_results = []
+
+                for chunk in execute_clauses(route_result, agents, agents_cfg):
+                    yield f"data: {json.dumps(chunk)}\n\n"
+
+                # log execution after all clauses
+                log_execution_result(request_id, exec_results)
+
+                # ONE termination
+                yield f"data: {json.dumps({
+                    'choices': [{
+                        'delta': {},
+                        'finish_reason': 'stop'
+                    }]
+                })}\n\n"
+                yield "data: [DONE]\n\n"
+
+            return Response(
+                stream_with_context(event_stream()),
+                mimetype="text/event-stream",
+            )
+
+        # ---- non-streaming path ----
+        else:
+            collected = []
+            exec_results = []
+
+            for chunk in execute_clauses(route_result, agents, agents_cfg):
+                # collapse deltas into text
+                delta = chunk["choices"][0].get("delta", {})
+                if "content" in delta:
+                    collected.append(delta["content"])
+
+            log_execution_result(request_id, exec_results)
+
+            return jsonify(chat_completions_response(
+                content="".join(collected),
+                model=body.get("model", "router"),
+            ))
 
 if __name__ == "__main__":
     app = create_app()
