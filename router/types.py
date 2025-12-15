@@ -9,6 +9,7 @@ class RoutedClause:
     confidence: float
     agent: str
 
+
 @dataclass
 class RouteResult:
     original_text: str

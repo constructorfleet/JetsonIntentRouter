@@ -42,9 +42,11 @@ class TrtEngineRunner:
 
     def ensure(self, name: str, shape: tuple, dtype: np.dtype):
         name_missing = name in self.host
-        if name_missing or \
-                self.host[name].size != int(np.prod(shape)) or \
-                self.host[name].dtype != dtype:
+        if (
+            name_missing
+            or self.host[name].size != int(np.prod(shape))
+            or self.host[name].dtype != dtype
+        ):
             self._alloc(name, shape, dtype)
 
     def infer(self, input_ids: np.ndarray, attention_mask: np.ndarray) -> np.ndarray:
@@ -79,13 +81,14 @@ class TrtEngineRunner:
         self.stream.synchronize()
         return self.host[out_name].reshape(out_shape).copy()
 
+
 class TrtIntentClassifier:
     def __init__(
-            self,
-            engine_path: str,
-            intents: List[str],
-            seq_len: int = 32,
-            model_name: str = "distilbert-base-uncased"
+        self,
+        engine_path: str,
+        intents: List[str],
+        seq_len: int = 32,
+        model_name: str = "distilbert-base-uncased",
     ):
         self.intents = intents
         self.seq_len = seq_len
@@ -108,6 +111,7 @@ class TrtIntentClassifier:
         probs = _softmax(logits)
         idx = int(np.argmax(probs))
         return self.intents[idx], float(probs[idx])
+
 
 def _softmax(x):
     x = x - np.max(x)

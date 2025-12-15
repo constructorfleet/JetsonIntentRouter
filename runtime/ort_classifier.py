@@ -9,19 +9,16 @@ from transformers import DistilBertTokenizerFast
 
 class OrtIntentClassifier:
     def __init__(
-            self,
-            onnx_path: str,
-            intents: List[str],
-            seq_len: int = 32,
-            model_name: str = "distilbert-base-uncased"
+        self,
+        onnx_path: str,
+        intents: List[str],
+        seq_len: int = 32,
+        model_name: str = "distilbert-base-uncased",
     ):
         self.intents = intents
         self.seq_len = seq_len
         self.tokenizer = DistilBertTokenizerFast.from_pretrained(model_name)
-        self.sess = ort.InferenceSession(
-                onnx_path,
-                providers=["CPUExecutionProvider"]
-        )
+        self.sess = ort.InferenceSession(onnx_path, providers=["CPUExecutionProvider"])
 
     def _encode(self, text: str):
         t = self.tokenizer(
@@ -42,6 +39,7 @@ class OrtIntentClassifier:
         probs = _softmax(logits[0])
         idx = int(np.argmax(probs))
         return self.intents[idx], float(probs[idx])
+
 
 def _softmax(x):
     x = x - np.max(x)

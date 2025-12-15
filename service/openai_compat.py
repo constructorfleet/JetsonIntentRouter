@@ -21,10 +21,9 @@ def extract_last_user_content(messages: List[Dict[str, Any]]) -> str:
                 return "\n".join(out)
     return ""
 
+
 def chat_completions_response(
-        content: str,
-        model: str = "router",
-        route_meta: Dict[str, Any] | None = None
+    content: str, model: str = "router", route_meta: Dict[str, Any] | None = None
 ):
     now = int(time.time())
     rid = f"chatcmpl-{uuid.uuid4().hex[:24]}"
@@ -33,11 +32,13 @@ def chat_completions_response(
         "object": "chat.completion",
         "created": now,
         "model": model,
-        "choices": [{
-            "index": 0,
-            "message": {"role": "assistant", "content": content},
-            "finish_reason": "stop"
-        }],
+        "choices": [
+            {
+                "index": 0,
+                "message": {"role": "assistant", "content": content},
+                "finish_reason": "stop",
+            }
+        ],
         "usage": {"prompt_tokens": 0, "completion_tokens": 0, "total_tokens": 0},
-        "route": route_meta or {}
+        "route": route_meta or {},
     }

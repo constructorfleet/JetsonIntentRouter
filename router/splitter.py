@@ -8,6 +8,7 @@ class SplitterConfig:
     patterns: List[str]
     min_clause_chars: int = 2
 
+
 class ClauseSplitter:
     def __init__(self, cfg: SplitterConfig):
         self.cfg = cfg

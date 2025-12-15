@@ -23,7 +23,7 @@ def main():
         return_tensors="pt",
         padding="max_length",
         truncation=True,
-        max_length=args.seq_len
+        max_length=args.seq_len,
     )
 
     torch.onnx.export(
@@ -38,8 +38,9 @@ def main():
             "logits": {0: "batch_size"},
         },
         opset_version=args.opset,
-        do_constant_folding=True
+        do_constant_folding=True,
     )
+
 
 if __name__ == "__main__":
     main()

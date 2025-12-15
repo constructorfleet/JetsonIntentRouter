@@ -18,5 +18,6 @@ def main():
         raise SystemExit("onnxsim simplify failed")
     onnx.save(simp, args.out)
 
+
 if __name__ == "__main__":
     main()

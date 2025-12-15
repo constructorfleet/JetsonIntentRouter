@@ -18,23 +18,32 @@ def _write(path: Path, record: dict):
 
 def log_raw_request(utterance: str) -> str:
     rid = uuid.uuid4().hex
-    _write(RAW_LOG, {
-        "request_id": rid,
-        "timestamp": datetime.utcnow().isoformat(),
-        "utterance": utterance,
-    })
+    _write(
+        RAW_LOG,
+        {
+            "request_id": rid,
+            "timestamp": datetime.utcnow().isoformat(),
+            "utterance": utterance,
+        },
+    )
     return rid
 
 
 def log_routed_clauses(request_id: str, clauses: list):
-    _write(ROUTED_LOG, {
-        "request_id": request_id,
-        "clauses": clauses,
-    })
+    _write(
+        ROUTED_LOG,
+        {
+            "request_id": request_id,
+            "clauses": clauses,
+        },
+    )
 
 
 def log_execution_result(request_id: str, results: list):
-    _write(EXEC_LOG, {
-        "request_id": request_id,
-        "results": results,
-    })
+    _write(
+        EXEC_LOG,
+        {
+            "request_id": request_id,
+            "results": results,
+        },
+    )
