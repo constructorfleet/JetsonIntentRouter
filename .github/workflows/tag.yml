@@ -22,12 +22,14 @@ jobs:
       - name: Extract version
         id: version
         run: |
-          python - <<EOF
+          VERSION=$(python - <<EOF
           import tomllib
-          with open("pyproject.toml","rb") as f:
+          with open("pyproject.toml", "rb") as f:
               data = tomllib.load(f)
-          print("VERSION=" + data["project"]["version"])
-          EOF >> $GITHUB_OUTPUT
+          print(data["project"]["version"])
+         EOF
+         )
+         echo "VERSION=$VERSION" >> "$GITHUB_OUTPUT"
 
       - name: Create tag
         run: |
