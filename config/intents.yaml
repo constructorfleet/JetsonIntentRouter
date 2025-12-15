@@ -1,0 +1,6 @@
+intents:
+  - MediaLibrary
+  - Playback
+  - SearchNews
+  - CommandControl
+  - Unknown

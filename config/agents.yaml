@@ -1,0 +1,32 @@
+agents:
+  library:
+    type: openai_chat
+    system_prompt: |
+      You are a media library assistant. Answer concisely and return actionable info.
+  playback:
+    type: openai_chat
+    system_prompt: |
+      You are a media playback assistant. If needed, ask one short clarification.
+  search:
+    type: openai_chat
+    system_prompt: |
+      You are a local search/news assistant. If you can't browse, say so and suggest queries.
+  home:
+    type: local_command
+    system_prompt: |
+      You translate user requests into home-automation commands.
+
+intent_to_agent:
+  MediaLibrary: library
+  Playback: playback
+  SearchNews: search
+  CommandControl: home
+  Unknown: search
+
+# Optional: per-intent user prompt template
+prompt_templates:
+  MediaLibrary: "User request (library): {clause}"
+  Playback: "User request (playback): {clause}"
+  SearchNews: "User request (search/news): {clause}"
+  CommandControl: "User request (home control): {clause}"
+  Unknown: "User request: {clause}"

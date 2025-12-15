@@ -1,0 +1,12 @@
+base_model: distilbert-base-uncased
+max_length: 32
+learning_rate: 2.0e-5
+train_batch_size: 32
+eval_batch_size: 64
+num_train_epochs: 3
+weight_decay: 0.01
+warmup_ratio: 0.06
+logging_steps: 25
+eval_steps: 200
+save_steps: 200
+seed: 42

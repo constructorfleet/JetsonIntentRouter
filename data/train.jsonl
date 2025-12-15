@@ -1,0 +1,10 @@
+{"text": "what movies do i have", "label": "MediaLibrary"}
+{"text": "show me my library", "label": "MediaLibrary"}
+{"text": "find alien", "label": "MediaLibrary"}
+{"text": "play alien on the tv", "label": "Playback"}
+{"text": "resume playback", "label": "Playback"}
+{"text": "pause the movie", "label": "Playback"}
+{"text": "what's going on in denver today", "label": "SearchNews"}
+{"text": "news in denver", "label": "SearchNews"}
+{"text": "turn off the lights", "label": "CommandControl"}
+{"text": "set the thermostat to 70", "label": "CommandControl"}

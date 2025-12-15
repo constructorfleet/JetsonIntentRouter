@@ -1,0 +1,11 @@
+\
+# Regex patterns used to split compound user input into clauses.
+# These are applied case-insensitively.
+patterns:
+  - '\band then\b'
+  - '\bthen\b'
+  - '\bdon''?t forget to\b'
+  - '\bafter that\b'
+  - '\bnext\b'
+  - '\band\b'
+min_clause_chars: 2
