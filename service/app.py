@@ -14,6 +14,7 @@ from router.router import IntentRouter
 from router.streaming import stream_agent
 from runtime.ort_classifier import OrtIntentClassifier
 from service.config import load_service_config, load_router_bits
+from service.labeling import LABEL_UI
 from service.openai_compat import extract_last_user_content, chat_completions_response
 
 from agents.openai_chat import OpenAIChatAgent
@@ -100,6 +101,8 @@ def create_app():
     @app.get("/healthz")
     def healthz():
         return {"ok": True, "backend": cfg.backend}
+
+    app.register_blueprint(LABEL_UI
 
     # OpenAI-compatible endpoint (minimal): /v1/chat/completions
     @app.post("/v1/chat/completions")

@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+<head>
+  <title>Intent Labeling</title>
+  <style>
+    body { font-family: sans-serif; padding: 20px; }
+    .clause { margin-bottom: 20px; padding: 10px; border: 1px solid #ccc; }
+  </style>
+</head>
+<body>
+
+<h1>Label Clauses</h1>
+
+{% for item in data %}
+  {% for c in item.clauses %}
+    <div class="clause">
+      <strong>{{ c.clause }}</strong><br/>
+      predicted: {{ c.intent }} ({{ "%.2f"|format(c.confidence) }})
+      <form method="post">
+        <input type="hidden" name="text" value="{{ c.clause }}"/>
+        <select name="label">
+          {% for i in intents %}
+            <option value="{{ i }}">{{ i }}</option>
+          {% endfor %}
+        </select>
+        <button type="submit">Accept</button>
+      </form>
+    </div>
+  {% endfor %}
+{% endfor %}
+
+</body>
+</html>
