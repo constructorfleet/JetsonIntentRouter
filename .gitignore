@@ -1,0 +1,51 @@
+# Virtual environments
+.venv/
+venv/
+ENV/
+
+# uv
+.uv/
+
+# Python bytecode
+__pycache__/
+*.py[cod]
+
+# Build artifacts
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Training artifacts
+checkpoints/
+runs/
+wandb/
+mlruns/
+trainer_state.json
+
+# Model/runtime artifacts
+*.engine
+*.plan
+*.trt
+*.ort
+
+# Data (keep small examples only)
+data/*.csv
+data/*.json
+data/*.jsonl
+!data/train.jsonl
+!data/val.jsonl
+
+# Env / secrets
+.env
+.env.*
+
+# Logs & runtime junk
+*.log
+logs/
+instance/
+.cache/
+
+# OS trash
+.DS_Store
+Thumbs.db
