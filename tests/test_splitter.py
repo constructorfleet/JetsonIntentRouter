@@ -1,5 +1,11 @@
-from intent_router.router.splitter import split_clauses
+from intent_router.router.splitter import ClauseSplitter, SplitterConfig
 
+splitter = ClauseSplitter(
+    SplitterConfig(
+        patterns=["and", "then"],
+        min_clause_chars=1,
+    )
+)
 
 def test_single_clause():
     text = "turn off the lights"
