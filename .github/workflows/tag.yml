@@ -1,0 +1,38 @@
+name: Tag on main
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  tag:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # needed for tags
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Extract version
+        id: version
+        run: |
+          VERSION=$(python - <<EOF
+          import tomllib
+          with open("pyproject.toml", "rb") as f:
+              data = tomllib.load(f)
+          print(data["project"]["version"])
+         EOF
+         )
+         echo "VERSION=$VERSION" >> "$GITHUB_OUTPUT"
+
+      - name: Create tag
+        run: |
+          TAG="v${{ steps.version.outputs.VERSION }}"
+          git tag $TAG || echo "Tag already exists"
+          git push origin $TAG || echo "Tag already pushed"

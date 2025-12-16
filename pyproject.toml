@@ -1,5 +1,5 @@
 [project]
-name = "jetson-intent-router"
+name = "intent-router"
 version = "0.1.0"
 description = "Jetson-friendly intent router with ONNX/TensorRT and OpenAI-compatible API"
 readme = "README.md"
@@ -8,7 +8,7 @@ requires-python = ">=3.9"
 dependencies = [
   "flask>=3.0.0",
   "pyyaml>=6.0.1",
-  "numpy>=1.24",:
+  "numpy>=1.24",
   "transformers>=4.41.0",
   "datasets>=2.19.0",
   "torch>=2.1.0",
@@ -20,7 +20,17 @@ dependencies = [
   "python-dotenv>=1.0.1",
 ]
 
-[project.optional-dependencies]
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[dependency-groups]
 jetson = [
   "tensorrt",
   "pycuda",
@@ -32,16 +42,12 @@ dev = [
   "pytest",
 ]
 
-[dependency-groups]
-dev = [
-  "black",
-  "ruff",
-  "pytest",
-]
-
 [tool.black]
 line-length = 100
 
 [tool.ruff]
 line-length = 100
+
+[tool.ruff.lint]
 select = ["E", "F", "I"]
+ignore = ["E501"]

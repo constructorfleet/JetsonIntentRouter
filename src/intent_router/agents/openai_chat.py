@@ -1,11 +1,25 @@
 from __future__ import annotations
-import os, requests
+
 import json
-from agents.base import Agent, AgentResponse
+import os
+
+import requests
+
+from intent_router.agents.base import Agent
+from intent_router.agents.types import AgentResponse
+
 
 class OpenAIChatAgent(Agent):
-    def __init__(self, base_url: str | None = None, api_key: str | None = None, model: str | None = None, timeout_s: int = 60):
-        self.base_url = (base_url or os.getenv("OPENAI_BASE_URL", "https://api.openai.com/v1")).rstrip("/")
+    def __init__(
+        self,
+        base_url: str | None = None,
+        api_key: str | None = None,
+        model: str | None = None,
+        timeout_s: int = 60,
+    ):
+        self.base_url = (
+            base_url or os.getenv("OPENAI_BASE_URL", "https://api.openai.com/v1")
+        ).rstrip("/")
         self.api_key = api_key or os.getenv("OPENAI_API_KEY", "")
         self.model = model or os.getenv("OPENAI_MODEL", "gpt-4.1-mini")
         self.timeout_s = timeout_s
@@ -15,7 +29,7 @@ class OpenAIChatAgent(Agent):
         if not self.api_key:
             return AgentResponse(
                 content=f"[stubbed-openai] {user_text}",
-                meta={"stubbed": True, "reason": "OPENAI_API_KEY not set"}
+                meta={"stubbed": True, "reason": "OPENAI_API_KEY not set"},
             )
 
         url = f"{self.base_url}/chat/completions"
@@ -37,15 +51,10 @@ class OpenAIChatAgent(Agent):
         content = data["choices"][0]["message"]["content"]
         return AgentResponse(content=content, meta={"provider": "openai", "model": self.model})
 
-
     def stream(self, user_text: str, system_prompt: str | None = None, **kwargs):
         # Stub path for dev / no key
         if not self.api_key:
-            yield {
-                "choices": [{
-                    "delta": {"content": f"[stubbed-openai] {user_text}"}
-                }]
-            }
+            yield {"choices": [{"delta": {"content": f"[stubbed-openai] {user_text}"}}]}
             return
 
         url = f"{self.base_url}/chat/completions"

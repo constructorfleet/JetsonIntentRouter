@@ -1,39 +1,45 @@
 from __future__ import annotations
-import argparse, os, yaml
+
+import argparse
+
 import numpy as np
+import yaml
 from datasets import Dataset
 from transformers import (
-    DistilBertTokenizerFast,
     DistilBertForSequenceClassification,
-    TrainingArguments,
+    DistilBertTokenizerFast,
     Trainer,
-    set_seed
+    TrainingArguments,
+    set_seed,
 )
+
 from training.io import read_jsonl
+
 
 def load_intents(intents_path: str):
     with open(intents_path, "r", encoding="utf-8") as f:
         cfg = yaml.safe_load(f)
     intents = cfg["intents"]
-    label2id = {l:i for i,l in enumerate(intents)}
-    id2label = {i:l for l,i in label2id.items()}
+    label2id = {label: id for id, label in enumerate(intents)}
+    id2label = {id2: label2 for label2, id2 in label2id.items()}
     return intents, label2id, id2label
+
 
 def tokenize_fn(tokenizer, max_length: int):
     def _fn(batch):
         return tokenizer(
-            batch["text"],
-            truncation=True,
-            padding="max_length",
-            max_length=max_length
+            batch["text"], truncation=True, padding="max_length", max_length=max_length
         )
+
     return _fn
+
 
 def compute_metrics(eval_pred):
     logits, labels = eval_pred
     preds = np.argmax(logits, axis=-1)
     acc = (preds == labels).mean().item()
     return {"accuracy": acc}
+
 
 def main():
     ap = argparse.ArgumentParser()
@@ -70,10 +76,7 @@ def main():
     val_ds = val_ds.map(tokenize_fn(tokenizer, int(cfg["max_length"])), batched=True)
 
     model = DistilBertForSequenceClassification.from_pretrained(
-        cfg["base_model"],
-        num_labels=len(intents),
-        id2label=id2label,
-        label2id=label2id
+        cfg["base_model"], num_labels=len(intents), id2label=id2label, label2id=label2id
     )
 
     ta = TrainingArguments(
@@ -100,12 +103,13 @@ def main():
         train_dataset=train_ds,
         eval_dataset=val_ds,
         tokenizer=tokenizer,
-        compute_metrics=compute_metrics
+        compute_metrics=compute_metrics,
     )
 
     trainer.train()
     trainer.save_model(args.out)
     tokenizer.save_pretrained(args.out)
+
 
 if __name__ == "__main__":
     main()

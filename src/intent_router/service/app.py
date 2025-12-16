@@ -1,31 +1,34 @@
 from __future__ import annotations
-import os
-from flask import Flask, request, jsonify, stream_with_context
-import json
-from dotenv import load_dotenv
 
-from router.logging import (
+import json
+
+from dotenv import load_dotenv
+from flask import Flask, Response, jsonify, request, stream_with_context
+
+from intent_router.agents.local_command import LocalCommandAgent
+from intent_router.agents.openai_chat import OpenAIChatAgent
+from intent_router.router.logging import (
+    log_execution_result,
     log_raw_request,
     log_routed_clauses,
-    log_execution_result,
 )
-from router.splitter import ClauseSplitter
-from router.router import IntentRouter
-from router.streaming import stream_agent
-from runtime.ort_classifier import OrtIntentClassifier
-from service.config import load_service_config, load_router_bits
-from service.labeling import LABEL_UI
-from service.openai_compat import extract_last_user_content, chat_completions_response
+from intent_router.router.router import IntentRouter
+from intent_router.router.splitter import ClauseSplitter
+from intent_router.router.streaming import stream_agent
+from intent_router.runtime.ort_classifier import OrtIntentClassifier
+from intent_router.service.config import load_router_bits, load_service_config
+from intent_router.service.labeling import LABEL_UI
+from intent_router.service.openai_compat import chat_completions_response, extract_last_user_content
 
-from agents.openai_chat import OpenAIChatAgent
-from agents.local_command import LocalCommandAgent
 
 def build_classifier(backend: str, model_path: str, intents, seq_len: int):
     if backend == "trt":
         from runtime.trt_classifier import TrtIntentClassifier
+
         return TrtIntentClassifier(model_path, intents=intents, seq_len=seq_len)
     # default ORT
     return OrtIntentClassifier(model_path, intents=intents, seq_len=seq_len)
+
 
 def build_agents(agents_cfg):
     agents = {}
@@ -38,6 +41,7 @@ def build_agents(agents_cfg):
         else:
             raise ValueError(f"Unknown agent type: {t} for agent {name}")
     return agents
+
 
 def execute_clauses(route_result, agents, agents_cfg):
     exec_results = []
@@ -58,22 +62,27 @@ def execute_clauses(route_result, agents, agents_cfg):
             ):
                 yield chunk
 
-            exec_results.append({
-                "clause": rc.clause,
-                "agent": rc.agent,
-                "status": "success",
-            })
+            exec_results.append(
+                {
+                    "clause": rc.clause,
+                    "agent": rc.agent,
+                    "status": "success",
+                }
+            )
 
         except Exception as e:
-            exec_results.append({
-                "clause": rc.clause,
-                "agent": rc.agent,
-                "status": "error",
-                "error": str(e),
-            })
+            exec_results.append(
+                {
+                    "clause": rc.clause,
+                    "agent": rc.agent,
+                    "status": "error",
+                    "error": str(e),
+                }
+            )
             raise
 
     return exec_results
+
 
 def format_routed_output(route_result, agent_outputs):
     # Human-readable output returned as assistant content (OpenAI format).
@@ -86,11 +95,14 @@ def format_routed_output(route_result, agent_outputs):
         lines.append(f"  result: {out}")
     return "\n".join(lines)
 
+
 def create_app():
     load_dotenv()
     cfg = load_service_config()
 
-    intents, split_cfg, agents_cfg, router_cfg = load_router_bits(cfg.intents_path, cfg.splitter_path, cfg.agents_path)
+    intents, split_cfg, agents_cfg, router_cfg = load_router_bits(
+        cfg.intents_path, cfg.splitter_path, cfg.agents_path
+    )
     splitter = ClauseSplitter(split_cfg)
     classifier = build_classifier(cfg.backend, cfg.model_path, intents, cfg.seq_len)
     router = IntentRouter(splitter=splitter, classifier=classifier, cfg=router_cfg)
@@ -102,7 +114,7 @@ def create_app():
     def healthz():
         return {"ok": True, "backend": cfg.backend}
 
-    app.register_blueprint(LABEL_UI
+    app.register_blueprint(LABEL_UI)
 
     # OpenAI-compatible endpoint (minimal): /v1/chat/completions
     @app.post("/v1/chat/completions")
@@ -146,12 +158,12 @@ def create_app():
                 log_execution_result(request_id, exec_results)
 
                 # ONE termination
-                yield f"data: {json.dumps({
+                yield f"""data: {json.dumps({
                     'choices': [{
                         'delta': {},
                         'finish_reason': 'stop'
                     }]
-                })}\n\n"
+                })}\n\n"""
                 yield "data: [DONE]\n\n"
 
             return Response(
@@ -172,10 +184,13 @@ def create_app():
 
             log_execution_result(request_id, exec_results)
 
-            return jsonify(chat_completions_response(
-                content="".join(collected),
-                model=body.get("model", "router"),
-            ))
+            return jsonify(
+                chat_completions_response(
+                    content="".join(collected),
+                    model=body.get("model", "router"),
+                )
+            )
+
 
 if __name__ == "__main__":
     app = create_app()

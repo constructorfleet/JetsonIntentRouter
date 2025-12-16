@@ -1,11 +1,20 @@
 from __future__ import annotations
+
+from typing import List, Tuple
+
 import numpy as np
 import onnxruntime as ort
-from typing import List, Tuple
 from transformers import DistilBertTokenizerFast
 
+
 class OrtIntentClassifier:
-    def __init__(self, onnx_path: str, intents: List[str], seq_len: int = 32, model_name: str = "distilbert-base-uncased"):
+    def __init__(
+        self,
+        onnx_path: str,
+        intents: List[str],
+        seq_len: int = 32,
+        model_name: str = "distilbert-base-uncased",
+    ):
         self.intents = intents
         self.seq_len = seq_len
         self.tokenizer = DistilBertTokenizerFast.from_pretrained(model_name)
@@ -30,6 +39,7 @@ class OrtIntentClassifier:
         probs = _softmax(logits[0])
         idx = int(np.argmax(probs))
         return self.intents[idx], float(probs[idx])
+
 
 def _softmax(x):
     x = x - np.max(x)

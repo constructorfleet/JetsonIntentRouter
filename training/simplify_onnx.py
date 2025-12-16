@@ -1,7 +1,10 @@
 from __future__ import annotations
+
 import argparse
-from onnxsim import simplify
+
 import onnx
+from onnxsim import simplify
+
 
 def main():
     ap = argparse.ArgumentParser()
@@ -14,6 +17,7 @@ def main():
     if not ok:
         raise SystemExit("onnxsim simplify failed")
     onnx.save(simp, args.out)
+
 
 if __name__ == "__main__":
     main()

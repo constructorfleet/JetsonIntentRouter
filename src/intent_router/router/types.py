@@ -1,5 +1,6 @@
 from dataclasses import dataclass
-from typing import Dict, Any, List
+from typing import Any, Dict, List
+
 
 @dataclass
 class RoutedClause:
@@ -7,6 +8,7 @@ class RoutedClause:
     intent: str
     confidence: float
     agent: str
+
 
 @dataclass
 class RouteResult:
