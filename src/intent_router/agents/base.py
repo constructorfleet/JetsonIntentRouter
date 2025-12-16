@@ -1,13 +1,8 @@
 from __future__ import annotations
 
-from dataclasses import dataclass
-from typing import Any, Iterator
+from typing import Iterator
 
-
-@dataclass
-class AgentResponse:
-    content: str
-    meta: dict[str, Any]
+from intent_router.agents.types import AgentResponse
 
 
 class Agent:

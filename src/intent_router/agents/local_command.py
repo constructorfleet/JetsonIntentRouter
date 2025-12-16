@@ -1,6 +1,7 @@
 from __future__ import annotations
 
-from intent_router.agents.base import Agent, AgentResponse
+from intent_router.agents.base import Agent
+from intent_router.agents.types import AgentResponse
 
 
 class LocalCommandAgent(Agent):
