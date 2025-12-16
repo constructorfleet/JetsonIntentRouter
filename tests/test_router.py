@@ -1,13 +1,32 @@
-from intent_router.router.router import Router
+from intent_router.router.router import IntentRouter, RouterConfig
+from intent_router.router.splitter import (
+    ClauseSplitter,
+    SplitterConfig,
+)
+
+
+splitter_config = SplitterConfig(
+    patterns=["and", "then"],
+    min_clause_chars=1,
+)
+
+splitter = ClauseSplitter(splitter_config)
 
 
 class DummyClassifier:
     def predict(self, text):
         return "CommandControl", 0.99
 
+router_config = RouterConfig(
+    intents=["CommandControl", "MediaPlayback"],
+    intent_to_agent={},
+    prompt_templates={},
+    confidence_threshold=0.6
+)
+
 
 def test_router_returns_clauses():
-    router = Router(classifier=DummyClassifier())
+    router = IntentRouter(classifier=DummyClassifier())
 
     result = router.route("turn off the lights and play music")
 
