@@ -27,9 +27,9 @@ jobs:
           with open("pyproject.toml", "rb") as f:
               data = tomllib.load(f)
           print(data["project"]["version"])
-         EOF
-         )
-         echo "VERSION=$VERSION" >> "$GITHUB_OUTPUT"
+          EOF
+          )
+          echo "VERSION=$VERSION" >> "$GITHUB_OUTPUT"
 
       - name: Create tag
         run: |
