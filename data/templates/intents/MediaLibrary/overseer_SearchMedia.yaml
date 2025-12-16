@@ -1,0 +1,9 @@
+---
+
+intents:
+  Search-Media:
+    data:
+      - sentences:
+        - "<search> [genre] {genre_name} <media_type>"
+        - "<search> <media_type> <starring> {person_name}"
+        

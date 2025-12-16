@@ -1,0 +1,6 @@
+---
+intents:
+  Request-Movie:
+    data:
+      - sentences:
+          - "<download> [the] <movie> {movie_title}"
