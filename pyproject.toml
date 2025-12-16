@@ -21,8 +21,10 @@ dependencies = [
 ]
 
 [tool.setuptools]
-package-dir = {"" = "."}
-packages = ["intent_router"]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
 
 [dependency-groups]
 jetson = [
