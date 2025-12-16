@@ -1,6 +1,7 @@
 from __future__ import annotations
 
-from typing import Any, Dict, Iterator
+from dataclasses import dataclass
+from typing import Any, Iterator
 
 @dataclass
 class AgentResponse:
