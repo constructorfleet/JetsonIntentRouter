@@ -4,7 +4,6 @@ from intent_router.router.splitter import (
     SplitterConfig,
 )
 
-
 splitter_config = SplitterConfig(
     patterns=["and", "then"],
     min_clause_chars=1,
@@ -17,11 +16,12 @@ class DummyClassifier:
     def predict(self, text):
         return "CommandControl", 0.99
 
+
 router_config = RouterConfig(
     intents=["CommandControl", "MediaPlayback"],
     intent_to_agent={},
     prompt_templates={},
-    confidence_threshold=0.6
+    confidence_threshold=0.6,
 )
 
 

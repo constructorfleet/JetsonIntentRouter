@@ -7,6 +7,7 @@ splitter = ClauseSplitter(
     )
 )
 
+
 def test_single_clause():
     text = "turn off the lights"
     clauses = splitter.split(text)
@@ -15,7 +16,7 @@ def test_single_clause():
 
 def test_multiple_clauses():
     text = "play alien and turn off the lights"
-    clauses = split_clauses(text)
+    clauses = splitter.split(text)
     assert clauses == ["play alien", "turn off the lights"]
 
 
