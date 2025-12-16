@@ -21,6 +21,7 @@ dependencies = [
 ]
 
 [tool.setuptools]
+package-dir = {"" = "."}
 packages = ["intent_router"]
 
 [dependency-groups]
