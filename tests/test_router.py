@@ -26,7 +26,11 @@ router_config = RouterConfig(
 
 
 def test_router_returns_clauses():
-    router = IntentRouter(classifier=DummyClassifier())
+    router = IntentRouter(
+        splitter,
+        DummyClassifier(),
+        router_config,
+    )
 
     result = router.route("turn off the lights and play music")
 
