@@ -7,10 +7,10 @@ from intent_router.router.logging import (
 
 def test_logging_functions(tmp_path, monkeypatch):
     # Redirect logs to temp dir
-    monkeypatch.setattr("router.logging.LOG_DIR", tmp_path)
-    monkeypatch.setattr("router.logging.RAW_LOG", tmp_path / "raw.jsonl")
-    monkeypatch.setattr("router.logging.ROUTED_LOG", tmp_path / "routed.jsonl")
-    monkeypatch.setattr("router.logging.EXEC_LOG", tmp_path / "exec.jsonl")
+    monkeypatch.setattr("intent_router.router.logging.LOG_DIR", tmp_path)
+    monkeypatch.setattr("intent_router.router.logging.RAW_LOG", tmp_path / "raw.jsonl")
+    monkeypatch.setattr("intent_router.router.logging.ROUTED_LOG", tmp_path / "routed.jsonl")
+    monkeypatch.setattr("intent_router.router.logging.EXEC_LOG", tmp_path / "exec.jsonl")
 
     rid = log_raw_request("turn off the lights")
     assert rid
