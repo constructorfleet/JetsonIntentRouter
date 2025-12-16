@@ -1,0 +1,6 @@
+---
+intents:
+  Request-TV-Show:
+    data:
+      - sentences:
+          - "<download> [the] <show> {show_name}"

@@ -1,0 +1,9 @@
+skip_words:
+  - "please"
+  - "can you"
+  - "could you"
+  - "would you"
+  - "for me"
+  - "i'd like"
+  - "i'd like to"
+  - "i want"

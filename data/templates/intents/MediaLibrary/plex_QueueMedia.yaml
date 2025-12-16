@@ -1,0 +1,17 @@
+---
+
+intents:
+  Queue-Media:
+    data:
+      # Queue a specific media title to play next on a device
+      - sentences:
+          - "<queue> {movie_title} <in> [the] <media_player>"
+          - "<queue> {show_name} <in> [the] <media_player>"
+          - "<queue> {episode_name} <in> [the] <media_player>"
+          - "<queue> [the] <show> {show_name} <season> {season_number} <episode> {episode_number} <in> [the] <media_player>"
+          - "<queue> [the] <episode> {episode_name} <in> [the] <media_player>"
+          - "<queue> {movie_title} <in> [the] <media_player>"
+          - "<queue> {show_name} <in> [the] <media_player>"
+          - "<queue> {episode_name} <in> [the] <media_player>"
+          - "<queue> [the] <show> {show_name} <season> {season_number} <episode> {episode_number} <in> [the] <media_player>"
+          - "<queue> [the] <episode> {episode_name} <in> [the] <media_player>"

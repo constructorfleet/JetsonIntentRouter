@@ -1,0 +1,19 @@
+---
+
+lists:
+  message:
+    wildcard: true
+
+  search_query:
+    wildcard: true
+
+  percent:
+    range:
+      type: "percentage"
+      from: 0
+      to: 100
+
+  year:
+    range:
+      from: 1900
+      to: 2100
