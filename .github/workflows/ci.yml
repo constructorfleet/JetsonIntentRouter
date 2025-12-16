@@ -31,6 +31,3 @@ jobs:
 
       - name: Tests
         run: uv run pytest
-
-      - name: Build package
-        run: uv run python -m build
