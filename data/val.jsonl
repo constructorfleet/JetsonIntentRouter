@@ -1,4 +1,4 @@
-{"text": "list my movies", "label": "MediaLibrary"}
-{"text": "play dune", "label": "Playback"}
+{"text": "get the new predator movie", "label": "FetchMedia"}
+{"text": "play dune in the movie room", "label": "Playback"}
 {"text": "events in denver", "label": "SearchNews"}
 {"text": "switch off bedroom lights", "label": "CommandControl"}
