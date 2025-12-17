@@ -1,258 +1,94 @@
 ---
 
 lists:
-  search_query:
-    wildcard: true
-
   media_type:
     values:
-      - in: "(movie|film)"
-        out: "movie"
-      - in: "show|tv show|series"
-        out: "show"
-      - in: "episode|installment|chapter|part"
-        out: "episode"
+      - movie
+      - show
+      - episode
 
-  genre_name:
+  genre:
     values:
-      - in: "action"
-        out: "action"
-      - in: "adventure"
-        out: "adventure"
-      - in: "animation"
-        out: "animation"
-      - in: "anime"
-        out: "anime"
-      - in: "biography"
-        out: "biography"
-      - in: "children"
-        out: "children"
-      - in: "(comedy|funny|silly)"
-        out: "comedy"
-      - in: "(crime|heist)"
-        out: "crime"
-      - in: "documentary"
-        out: "documentary"
-      - in: "drama"
-        out: "drama"
-      - in: "family"
-        out: "family"
-      - in: "fantasy"
-        out: "fantasy"
-      - in: "food"
-        out: "food"
-      - in: "(history|historical)"
-        out: "history"
-      - in: "(horror|scary|creepy)"
-        out: "horror"
-      - in: "(indie|independent)"
-        out: "indie"
-      - in: "(martial arts|kung fu|wu xia)"
-        out: "martial arts"
-      - in: "music"
-        out: "music"
-      - in: "musical"
-        out: "musical"
-      - in: "mystery"
-        out: "mystery"
-      - in: "romance"
-        out: "romance"
-      - in: "(science fiction|sci-fi|scifi)"
-        out: "science fiction"
-      - in: "short"
-        out: "short"
-      - in: "sport"
-        out: "sport"
-      - in: "suspense"
-        out: "suspense"
-      - in: "thriller"
-        out: "thriller"
-      - in: "(tv movie|made for tv movie)"
-        out: "tv movie"
-      - in: "war"
-        out: "war"
-      - in: "western"
-        out: "western"
+      - science fiction
+      - drama
+      - comedy
+      - action
+      - thriller
 
   movie_title:
     values:
-      - in: "the godfather"
-        out: "The Godfather"
-      - in: "inception"
-        out: "Inception"
-      - in: "the dark knight"
-        out: "The Dark Knight"
-      - in: "pulp fiction"
-        out: "Pulp Fiction"
-      - in: "the shawshank redemption"
-        out: "The Shawshank Redemption"
-      - in: "forrest gump"
-        out: "Forrest Gump"
-      - in: "the matrix"
-        out: "The Matrix"
-      - in: "fight club"
-        out: "Fight Club"
-      - in: "the lord of the rings: the fellowship of the ring"
-        out: "The Lord of the Rings: The Fellowship of the Ring"
-      - in: "star wars: episode iv - a new hope"
-        out: "Star Wars: Episode IV - A New Hope"
-      - in: "the silence of the lambs"
-        out: "The Silence of the Lambs"
-      - in: "hackers"
-        out: "Hackers"
-      - in: "interstellar"
-        out: "Interstellar"
-      - in: "the lion king"
-        out: "The Lion King"
-      - in: "back to the future"
-        out: "Back to the Future"
-      - in: "gladiator"
-        out: "Gladiator"
-      - in: "jurassic park"
-        out: "Jurassic Park"
-      - in: "the prestige"
-        out: "The Prestige"
-      - in: "the departed"
-        out: "The Departed"
-      - in: "the green mile"
-        out: "The Green Mile"
-      - in: "avatar"
-        out: "Avatar"
-      - in: "alien"
-        out: "Alien"
-      - in: "2 guns"
-        out: "2 Guns"
-      - in: "[the] gentlemen"
-        out: "The Gentlemen"
-      - in: "arrival"
-        out: "Arrival"
-      - in: "(bio dome|biodome|bio-dome)"
-        out: "Bio-Dome"
+      - alien
+      - the Matrix
+      - blade Runner
+      - terminator"
+      - inception
+      - interstellar
+      - the shawshank redemption
+      - "the lord of the rings: the fellowship of the ring"
 
-  show_name:
+  show_title:
     values:
-      - in: "breaking bad"
-        out: "Breaking Bad"
-      - in: "game of thrones"
-        out: "Game of Thrones"
-      - in: "the office"
-        out: "The Office"
-      - in: "stranger things"
-        out: "Stranger Things"
-      - in: "friends"
-        out: "Friends"
-      - in: "the mandalorian"
-        out: "The Mandalorian"
-      - in: "the crown"
-        out: "The Crown"
-      - in: "the witcher"
-        out: "The Witcher"
-      - in: "sherlock"
-        out: "Sherlock"
-      - in: "westworld"
-        out: "Westworld"
-      - in: "you"
-        out: "You"
-      - in: "[the] boys"
-        out: "The Boys"
-      - in: "[the] book of boba fett"
-        out: "The Book of Boba Fett"
-      - in: "dirk gently's holistic detective agency"
-        out: "Dirk Gently's Holistic Detective Agency"
-      - in: "hannibal"
-        out: "Hannibal"
+      - dirk gently's holistic detective agency
+      - hannibal
+      - breaking bad
+      - the expanse
+      - stranger things
+      - the office
+      - game of thrones
 
-  episode_title:
+  episode_name:
     values:
-      - in: "pilot"
-        out: "Pilot"
-      - in: "the one where monica gets a roommate"
-        out: "The One Where Monica Gets a Roommate"
-      - in: "winter is coming"
-        out: "Winter Is Coming"
-      - in: "the ricklantis mixup"
-        out: "The Ricklantis Mixup"
-      - in: "the dragon and the wolf"
-        out: "The Dragon and the Wolf"
-      - in: "the long night"
-        out: "The Long Night"
-      - in: "the spoils of war"
-        out: "The Spoils of War"
-      - in: "the winds of winter"
-        out: "The Winds of Winter"
-      - in: "the tale of scrotie mcboogerballs"
-        out: "The Tale of Scrotie McBoogerballs"
-      - in: "the last of the meheecans"
-        out: "The Last of the Meheecans"
-      - in: "the box"
-        out: "The Box"
-      - in: "the ex-girlfriend"
-        out: "The Ex-Girlfriend"
-      - in: "the engineer"
-        out: "The Engineer"
-      - in: "solo"
-        out: "Solo"
+      - the one where monica gets a roommate
+      - the tale of scrotie mcboogerballs
+      - the box
 
   media_player:
     values:
-      - in: "(movie room|movie room tv)"
-        out: "Plex"
-      - in: "spotify"
-        out: "Spotify"
-      - in: "netflix"
-        out: "Netflix"
-      - in: "hulu"
-        out: "Hulu"
-      - in: "disney plus|disney+"
-        out: "Disney Plus"
-      - in: "amazon prime video|prime video"
-        out: "Amazon Prime Video"
-      - in: "apple tv plus|apple tv+"
-        out: "Apple TV Plus"
+      - the movie room tv
+      - the basement
+      - the living room apple tv
 
   plot_description:
     values:
-      - in: "kids never say die"
-        out: "kids never say die"
-      - in: "a gangster just wants his 70 thousand dollars"
-        out: "a gangster just wants his 70 thousand dollars"
-      - in: "girls are mean to each other in high school"
-        out: "girls are mean to each other in high school"
-      - in: "actors are taken aboard a real spaceship"
-        out: "actors are taken aboard a real spaceship"
-      - in: "college kids go to a cabin think two hillbillies are after them but they're actually nice"
-        out: "college kids go to a cabin think two hillbillies are after them but they're actually nice"
-      - in: "that one clown keeps asking about his scars"
-        out: "that one clown keeps asking about his scars"
-      - in: "a computer hacker learns about the true nature of his reality"
-        out: "a computer hacker learns about the true nature of his reality"
-      - in: "a team of explorers travel through a wormhole in space"
-        out: "a team of explorers travel through a wormhole in space"
-      - in: "a hobbit sets out on a journey to destroy a powerful ring"
-        out: "a hobbit sets out on a journey to destroy a powerful ring"
-      - in: "a group of friends try to survive a series of supernatural events in their town"
-        out: "a group of friends try to survive a series of supernatural events in their town"
-      - in: "a chemistry teacher turns to a life of crime after being diagnosed with cancer"
-        out: "a chemistry teacher turns to a life of crime after being diagnosed with cancer"
-      - in: "a group of survivors fight against zombies in a post-apocalyptic world"
-        out: "a group of survivors fight against zombies in a post-apocalyptic world"
+      - kids never say die
+      - a gangster just wants his 70 thousand dollarsp
+      - a chemistry teacher turns to a life of crime after being diagnosed with cancer
+
+  actor:
+    values:
+      - robert downey jr
+      - angelina jolie
+      - jennifer lawrence
+      - christian bale
+      - common
+      - aqwafina
+
+  director:
+    values:
+      - "Ridley Scott"
+      - "James Cameron"
+      - "Christopher Nolan"
 
   rating_number:
-    range:
-      from: 1
-      to: 10
+    values:
+      - "7"
+      - "5"
+      - "9"
 
-  season_number:
-    range:
-      from: 1
-      to: 200
+  season:
+    values:
+      - "1"
+      - "3"
+      - "26"
 
-  episode_number:
-    range:
-      from: 1
-      to: 365
-  
-  year:
-    range:
-      from: 1900
-      to: 2100
+  episode:
+    values:
+      - "1"
+      - "10"
+      - "4"
+
+  watched_state:
+    values:
+      - watched
+      - unwatched
+      - not watched

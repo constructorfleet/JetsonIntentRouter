@@ -1,6 +1,8 @@
 ---
 intents:
-  Request-Movie:
+  request-movie:
     data:
       - sentences:
           - "<download> [the] <movie> {movie_title}"
+          - "<download> {movie_title}"
+          - "<download> [the] <newness> {movie_title}"
