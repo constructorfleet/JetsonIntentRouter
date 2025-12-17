@@ -447,7 +447,7 @@ def get_route(intent: str) -> str:
         return "MediaLibrary"
     if intent in ["request-movie", "request-tv-show", "search-media"]:
         return "FetchMedia"
-    return "Uncertain"
+    return "Unknown"
     
 if __name__ == "__main__":
     result, sentence_count = load_all_templates(TEMPLATE_DIR)

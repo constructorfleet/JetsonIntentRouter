@@ -1,4 +1,3 @@
-\
 # Regex patterns used to split compound user input into clauses.
 # These are applied case-insensitively.
 patterns:
