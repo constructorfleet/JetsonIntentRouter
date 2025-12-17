@@ -1,4 +1,115 @@
 {"text": "get the new predator movie", "label": "FetchMedia"}
-{"text": "play dune in the movie room", "label": "Playback"}
+{"text": "play dune in the movie room", "label": "MediaLibrary"}
 {"text": "events in denver", "label": "SearchNews"}
 {"text": "switch off bedroom lights", "label": "CommandControl"}
+{"text": "download the new alien movie", "label": "FetchMedia"}
+{"text": "grab interstellar", "label": "FetchMedia"}
+{"text": "download the show the expanse", "label": "FetchMedia"}
+{"text": "search for the latest blade Runner", "label": "FetchMedia"}
+{"text": "what is the show breaking bad", "label": "MediaLibrary"}
+{"text": "list comedy films", "label": "MediaLibrary"}
+{"text": "what is the expanse season 1 episode 10", "label": "MediaLibrary"}
+{"text": "play the episode the one where monica gets a roommate in the living room apple tv", "label": "MediaLibrary"}
+{"text": "queue alien in the basement", "label": "MediaLibrary"}
+{"text": "turn on the basement lights", "label": "CommandControl"}
+{"text": "turn off the garage door", "label": "CommandControl"}
+{"text": "download alien", "label": "FetchMedia"}
+{"text": "download the movie blade Runner", "label": "FetchMedia"}
+{"text": "get the film interstellar", "label": "FetchMedia"}
+{"text": "download the latest inception", "label": "FetchMedia"}
+{"text": "download the new movie alien", "label": "FetchMedia"}
+{"text": "grab the film interstellar", "label": "FetchMedia"}
+{"text": "download the new show stranger things", "label": "FetchMedia"}
+{"text": "download the show game of thrones", "label": "FetchMedia"}
+{"text": "download the show hannibal", "label": "FetchMedia"}
+{"text": "download the new show the expanse", "label": "FetchMedia"}
+{"text": "download the show the office", "label": "FetchMedia"}
+{"text": "download the latest movie the Matrix", "label": "FetchMedia"}
+{"text": "download the movie the shawshank redemption", "label": "FetchMedia"}
+{"text": "download the new show breaking bad", "label": "FetchMedia"}
+{"text": "download the show dirk gently's holistic detective agency", "label": "FetchMedia"}
+{"text": "search for science fiction movie", "label": "FetchMedia"}
+{"text": "search science fiction show", "label": "FetchMedia"}
+{"text": "search movies starring robert downey jr", "label": "FetchMedia"}
+{"text": "search movies starring common", "label": "FetchMedia"}
+{"text": "search movies directed by christian bale", "label": "FetchMedia"}
+{"text": "search movies directed by robert downey jr", "label": "FetchMedia"}
+{"text": "search for the latest the Matrix", "label": "FetchMedia"}
+{"text": "search for the recent blade Runner", "label": "FetchMedia"}
+{"text": "search for the latest interstellar", "label": "FetchMedia"}
+{"text": "search for the new alien movie", "label": "FetchMedia"}
+{"text": "download the latest movie interstellar", "label": "FetchMedia"}
+{"text": "download new movie the lord of the rings: the fellowship of the ring", "label": "FetchMedia"}
+{"text": "download the film the lord of the rings: the fellowship of the ring", "label": "FetchMedia"}
+{"text": "save the movie inception", "label": "FetchMedia"}
+{"text": "get the movie alien", "label": "FetchMedia"}
+{"text": "do i have alien", "label": "MediaLibrary"}
+{"text": "do i have blade Runner", "label": "MediaLibrary"}
+{"text": "what is the movie inception", "label": "MediaLibrary"}
+{"text": "what's the movie interstellar", "label": "MediaLibrary"}
+{"text": "what science fiction movies do i have", "label": "MediaLibrary"}
+{"text": "list drama films", "label": "MediaLibrary"}
+{"text": "what is movies with jennifer lawrence", "label": "MediaLibrary"}
+{"text": "list films starring angelina jolie", "label": "MediaLibrary"}
+{"text": "what is movies by Ridley Scott", "label": "MediaLibrary"}
+{"text": "list movies by James Cameron", "label": "MediaLibrary"}
+{"text": "what is new movies", "label": "MediaLibrary"}
+{"text": "list latest shows", "label": "MediaLibrary"}
+{"text": "what are movies similar to the Matrix", "label": "MediaLibrary"}
+{"text": "find a movie similar to alien", "label": "MediaLibrary"}
+{"text": "what are drama movies similar to interstellar", "label": "MediaLibrary"}
+{"text": "what is watched movies", "label": "MediaLibrary"}
+{"text": "list unwatched films", "label": "MediaLibrary"}
+{"text": "what is the show stranger things", "label": "MediaLibrary"}
+{"text": "do i have the show the office", "label": "MediaLibrary"}
+{"text": "what are some comedy shows", "label": "MediaLibrary"}
+{"text": "list science fiction tv shows", "label": "MediaLibrary"}
+{"text": "what are shows like breaking bad", "label": "MediaLibrary"}
+{"text": "what is the expanse season 1 episode 1", "label": "MediaLibrary"}
+{"text": "list episodes of game of thrones season 3", "label": "MediaLibrary"}
+{"text": "what is stranger things season 1 episode 4", "label": "MediaLibrary"}
+{"text": "what is breaking bad season 2", "label": "MediaLibrary"}
+{"text": "what is the show the expanse", "label": "MediaLibrary"}
+{"text": "is there an alien movie", "label": "MediaLibrary"}
+{"text": "is there blade Runner in my library", "label": "MediaLibrary"}
+{"text": "do i have interstellar", "label": "MediaLibrary"}
+{"text": "list unwatched episodes", "label": "MediaLibrary"}
+{"text": "what unwatched shows do i have", "label": "MediaLibrary"}
+{"text": "list watched films", "label": "MediaLibrary"}
+{"text": "what are science fiction movies like blade Runner", "label": "MediaLibrary"}
+{"text": "find a movie like the Matrix", "label": "MediaLibrary"}
+{"text": "what is the show hannibal", "label": "MediaLibrary"}
+{"text": "list episodes of the first season of the office", "label": "MediaLibrary"}
+{"text": "what is stranger things season 1 episode 10", "label": "MediaLibrary"}
+{"text": "list comedy tv shows", "label": "MediaLibrary"}
+{"text": "what is the show game of thrones", "label": "MediaLibrary"}
+{"text": "turn on basement lights", "label": "CommandControl"}
+{"text": "turn on garage lights", "label": "CommandControl"}
+{"text": "turn on master bedroom lights", "label": "CommandControl"}
+{"text": "turn on all lights in basement", "label": "CommandControl"}
+{"text": "light up garage", "label": "CommandControl"}
+{"text": "illuminate office", "label": "CommandControl"}
+{"text": "turn on the lights on the main floor", "label": "CommandControl"}
+{"text": "light up the main floor", "label": "CommandControl"}
+{"text": "turn on all lights everywhere", "label": "CommandControl"}
+{"text": "activate all lights everywhere", "label": "CommandControl"}
+{"text": "turn on the lights here", "label": "CommandControl"}
+{"text": "light it up here", "label": "CommandControl"}
+{"text": "turn on the light in basement", "label": "CommandControl"}
+{"text": "turn on the lights in the office", "label": "CommandControl"}
+{"text": "turn on the light in the garage", "label": "CommandControl"}
+{"text": "turn on basement lighting", "label": "CommandControl"}
+{"text": "turn on all the lights in the house", "label": "CommandControl"}
+{"text": "turn on the main floor lights", "label": "CommandControl"}
+{"text": "turn on all the lights in the main floor", "label": "CommandControl"}
+{"text": "turn on the light on main floor", "label": "CommandControl"}
+{"text": "turn on the lights in here", "label": "CommandControl"}
+{"text": "turn on the lights at home", "label": "CommandControl"}
+{"text": "activate the lights in the master bedroom", "label": "CommandControl"}
+{"text": "illuminate all areas", "label": "CommandControl"}
+{"text": "make sure all lights are on everywhere", "label": "CommandControl"}
+{"text": "activate all the lights in home", "label": "CommandControl"}
+{"text": "get all lights on everywhere", "label": "CommandControl"}
+{"text": "turn on the lights in the garage", "label": "CommandControl"}
+{"text": "turn on the lights in the master bedroom", "label": "CommandControl"}
+{"text": "turn on basement light", "label": "CommandControl"}

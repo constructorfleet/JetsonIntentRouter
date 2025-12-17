@@ -26,7 +26,7 @@ intent_to_agent:
 # Optional: per-intent user prompt template
 prompt_templates:
   MediaLibrary: "User request (library): {clause}"
-  FetchMedia: "User request (playback): {clause}"
+  FetchMedia: "User request (media): {clause}"
   SearchNews: "User request (search/news): {clause}"
   CommandControl: "User request (home control): {clause}"
   Unknown: "User request: {clause}"
