@@ -9,7 +9,7 @@ ROUTED_LOG = Path("logs/routed_clauses.jsonl")
 OUT_FILE = Path("data/accepted_training.jsonl")
 OUT_FILE.parent.mkdir(exist_ok=True)
 
-INTENTS = ["MediaLibrary", "Playback", "SearchNews", "CommandControl", "Unknown"]
+INTENTS = ["MediaLibrary", "FetchMedia", "SearchNews", "CommandControl", "Unknown"]
 
 
 def load_unreviewed(limit=50):

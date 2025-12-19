@@ -18,7 +18,7 @@ class DummyClassifier:
 
 
 router_config = RouterConfig(
-    intents=["CommandControl", "MediaPlayback"],
+    intents=["CommandControl", "MediaLibrary"],
     intent_to_agent={},
     prompt_templates={},
     confidence_threshold=0.6,

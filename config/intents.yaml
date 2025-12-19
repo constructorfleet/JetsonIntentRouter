@@ -1,6 +1,6 @@
 intents:
   - MediaLibrary
-  - Playback
+  - FetchMedia
   - SearchNews
   - CommandControl
   - Unknown

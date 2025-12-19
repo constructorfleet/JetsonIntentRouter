@@ -2,7 +2,10 @@
 
 lists:
   message:
-    wildcard: true
+    values:
+      - dinner is ready
+      - patrick is here
+      - it's time to go
 
   search_query:
     wildcard: true

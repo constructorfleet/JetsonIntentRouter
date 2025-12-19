@@ -65,7 +65,7 @@ All behavior is config-driven.
 ```yaml
 intents:
   - MediaLibrary
-  - Playback
+  - FetchMedia
   - SearchNews
   - CommandControl
   - Unknown

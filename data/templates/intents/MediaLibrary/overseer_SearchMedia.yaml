@@ -1,9 +1,11 @@
 ---
 
 intents:
-  Search-Media:
+  search-media:
     data:
       - sentences:
-        - "<search> [genre] {genre_name} <media_type>"
-        - "<search> <media_type> <starring> {person_name}"
+        - "<search> for {genre} {media_type}"
+        - "<search> {media_type} <starring> {actor}"
+        - "<search> {media_type} directed by {actor}"
+        - "<search> for the <newness> {movie_title}"
         

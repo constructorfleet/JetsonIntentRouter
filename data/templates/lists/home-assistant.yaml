@@ -1,6 +1,13 @@
 ---
 
 lists:
+  area:
+    values:
+      - basement
+      - master bedroom
+      - garage
+      - office
+
   color:
     values:
       - "white"
@@ -31,6 +38,25 @@ lists:
         out: "movie"
       - in: "[tv] show"
         out: "tv_show"
+
+  name:
+    values:
+      - basement lights
+      - genesis
+      - garage door
+      - lock
+      - movie room sync
+
+  floor:
+    values:
+      - main floor
+      - basement
+
+  zone:
+    values:
+      - BHG
+      - home
+      - adrienne's house
 
   brightness:
     range:
@@ -298,13 +324,16 @@ lists:
         out: "off"
 
   shopping_list_item:
-    wildcard: true
+    values:
+      - tomatoes
+      - cucumbers
+      - cinnamon toast crunch
+      - halloumi
 
   todo_list_item:
-    wildcard: true
-
-  zone:
-    wildcard: true
+    values:
+      - clean up
+      - take out the trash
 
   position:
     range:
@@ -341,10 +370,14 @@ lists:
         out: 30
 
   timer_name:
-    wildcard: true
+    values:
+      - baking timer
+      - bomb timer
 
   timer_command:
-    wildcard: true
+    values:
+      - turn off the lights
+      - announce
 
   fan_speed:
     range:
